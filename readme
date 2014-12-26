@@ -1,4 +1,4 @@
-Simple books app to learn express framework and mongoose for mongodb.
+Simple books API to learn express framework and mongoose for mongodb.
 
 # initialize
 $ npm install

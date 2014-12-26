@@ -15,7 +15,7 @@ router.get('/', function(request, response) {
 });
 
 router.get('/:id', function(request, response) {
-  response.send('Book id ...:' + request.params.id);
+  response.send(request.params.id);
 });
 
 module.exports = router;

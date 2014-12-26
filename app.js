@@ -23,7 +23,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // app
 app.use('/', require('./routes'));
-app.use('/users', require('./routes/users'));
 
 // api routes
 app.use('/api', require('./routes/api'));
