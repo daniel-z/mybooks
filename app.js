@@ -6,8 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var app = express();
-var database = require('./database');
-var APIV1Books = require('./routes/api/v1/books')(database);
+app.database = require('./database');
+var APIV1Books = require('./routes/api/v1/books')(app);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

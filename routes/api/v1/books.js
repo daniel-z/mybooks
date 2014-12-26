@@ -1,11 +1,11 @@
-var router = require('express').Router();
+module.exports = function(app) {
+  var router = require('express').Router();
 
-module.exports = function(database) {
   // Get a list of all books
   router.get('/', function(request, response) {
-    return database.models.book.find(function(err, books) {
+    return app.database.models.book.find(function(err, books) {
       if (!err) {
-        return response.send(books);
+        return response.json(books);
       } else {
         return console.log(err);
       }
