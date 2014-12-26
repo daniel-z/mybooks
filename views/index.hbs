@@ -1,2 +1,16 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<h1>My Bookshelf</h1>
+<p>This is my bookshelf</p>
+
+{{#if books}}
+  {{#each books}}
+    <h2><a href="/books/{{id}}">{{title}}</a></h2>
+    <ul>
+      <li>{{author}}</li>
+      <li>{{readStart}}</li>
+      <li>{{readEnd}}</li>
+      <li>{{readProgress}}</li>
+    </ul>
+  {{/each}}
+{{else}}
+  No books registered.
+{{/if}}
