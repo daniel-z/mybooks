@@ -6,6 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var app = express();
+var database = require('./database');
+var APIV1Books = require('./routes/api/v1/books')(database);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -27,7 +29,7 @@ app.use('/', require('./routes'));
 // api routes
 app.use('/api', require('./routes/api'));
 app.use('/api/v1', require('./routes/api/v1'));
-app.use('/api/v1/books', require('./routes/api/v1/books'));
+app.use('/api/v1/books', APIV1Books);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,21 +1,20 @@
-var express = require('express');
-var database = require('../../../database');
-var router = express.Router();
-var BookModel = database.models.book;
+var router = require('express').Router();
 
-// Get a list of all books
-router.get('/', function(request, response) {
-  return BookModel.find(function(err, books) {
-    if (!err) {
-      return response.send(books);
-    } else {
-      return console.log(err);
-    }
+module.exports = function(database) {
+  // Get a list of all books
+  router.get('/', function(request, response) {
+    return database.models.book.find(function(err, books) {
+      if (!err) {
+        return response.send(books);
+      } else {
+        return console.log(err);
+      }
+    });
   });
-});
 
-router.get('/:id', function(request, response) {
-  response.send(request.params.id);
-});
+  router.get('/:id', function(request, response) {
+    response.send(request.params.id);
+  });
 
-module.exports = router;
+  return router;
+};
