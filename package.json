@@ -14,5 +14,17 @@
     "debug": "~2.0.0",
     "hbs": "~2.7.0",
     "mongoose": "~3.5.5"
+  },
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "grunt": "latest",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-mocha": "^0.4.11",
+    "grunt-mocha-test": "^0.12.4",
+    "mocha": "^2.1.0",
+    "phantomjs": "^1.9.13",
+    "sinon": "^1.12.2",
+    "supertest": "^0.15.0",
+    "underscore": "^1.7.0"
   }
 }
