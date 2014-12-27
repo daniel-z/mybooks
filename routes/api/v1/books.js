@@ -5,7 +5,10 @@ module.exports = function(app) {
   router.get('/', function(request, response) {
     return app.database.models.book.find(function(err, books) {
       if (!err) {
-        return response.json(books);
+        response.set('Content-Type', 'application/json');
+        return response.json({
+          books: books || []
+        });
       } else {
         return console.log(err);
       }

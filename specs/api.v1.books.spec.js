@@ -1,19 +1,8 @@
 var expect = require('chai').expect;
 var request = require('supertest');
 var sinon = require('sinon');
-
-var defaultGetOptions = function(path, port, sessionCookie) {
-  var options = {
-    "host": "localhost",
-    "port": port,
-    "path": path,
-    "method": "GET",
-    "headers": {
-      "Cookie": sessionCookie || null
-    }
-  };
-  return options;
-};
+var testData = require('./test-data');
+var _ = require('underscore');
 
 var app = require('../app');
 
@@ -34,43 +23,103 @@ describe('app', function() {
   describe('api/', function() {
     describe('v1/', function() {
       describe('books', function() {
-        before(function() {
-          this.headers = defaultGetOptions('/api/v1/books', '3333');
-        });
+        describe('GET', function() {
+          before(function(done) {
+            this.originalFind = _.clone(app.database.models.book.find);
+            done();
+          });
 
-        after(function() {
-          this.headers = '';
-        });
+          afterEach(function(done) {
+            app.database.models.book.find = this.originalFind;
+            done();
+          });
 
-        it('should be able to return a list of books in json format', function(done) {
-          // mock the mongoose in the app
-          // return an array of books
-          request(app)
-            .get('/user')
-            .expect('Content-Type', /json/)
-            .expect('Content-Length', '0')
-            .expect(200)
-            .end(function(err, res) {
-              if (err) return done(err);
-              done()
-            });
-        });
+          it('should answer in json format', function(done) {
+            app.database.models.book.find = function(callback) {
+              callback(null, []);
+            };
+
+            request(app)
+              .get('/api/v1/books')
+              .expect('Content-Type', /json/)
+              .expect(200, done);
+          });
+
+          it('should return 200 status and empty books object when no books', function(done) {
+            app.database.models.book.find = function(callback) {
+              callback(null, []);
+            };
+
+            request(app)
+              .get('/api/v1/books')
+              .expect(200)
+              .end(function(error, response) {
+                expect(response.body.books).that.is.an('array');
+                expect(response.body.books.length).to.equals(0);
+                done();
+              });
+          });
+
+          it('should search the database and return an array of books', function(done) {
+            app.database.models.book.find = function(callback) {
+              callback(null, testData.books);
+            };
+
+            request(app)
+              .get('/api/v1/books')
+              .expect('Content-Type', /json/)
+              .expect(200)
+              .end(function(error, response) {
+                expect(response.body.books).that.is.an('array');
+                done();
+              });
+          });
+        }); // end GET /books/
 
         describe('/books/:id', function() {
-          it('should be able to return a book', function() {
-            // get a book
-          });
-          it('should post', function() {
-            // create a book
 
+          describe('GET', function() {
+            it('should return json content', function(done) {
+              // get a book
+              done();
+            });
+            it('should search the database and return an empty object when no book found', function(done) {
+              // get a book
+              done();
+            });
+            it('should search the database and return a book object by id', function(done) {
+              // get a book
+              done();
+            });
           });
-          it('should delete', function() {
-            // delete a book
 
+          // end POST /books/:id
+          describe('POST', function() {
+            it('should post', function(done) {
+              // create a book
+              done();
+            });
           });
-          it('should put', function() {
-            // update a book
+          // end POST /books/:id
+
+          // end PUT /books/:id
+          describe('POST', function() {
+            it('should put', function(done) {
+              // update a book
+              done();
+            });
           });
+          // end PUT /books/:id
+
+          // end DELETE /books/:id
+          describe('POST', function() {
+            it('should delete', function(done) {
+              // delete a book
+              done();
+            });
+          });
+          // end DELETE /books/:id
+
         }); // end /books/:id
 
       });

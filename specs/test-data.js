@@ -27,7 +27,7 @@ var books = [{
   "image": "images/books/media.png",
   "rate": "4",
   "readStart": "2014-11-01",
-  "readEnd": ""
+  "readEnd": "",
   "title": "Media Noche en México"
 }, {
   "author": "Andy Hunt",
@@ -35,7 +35,7 @@ var books = [{
   "image": "images/books/learning.png",
   "rate": "4",
   "readStart": "",
-  "readEnd": ""
+  "readEnd": "",
   "title": "Pragmatic Thinking & Learning"
 }];
 
