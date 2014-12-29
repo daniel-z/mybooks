@@ -7,13 +7,13 @@ var _ = require('underscore');
 var app = require('../app');
 
 describe('app', function() {
-  before(function(done) {
-    done();
-  });
-
-  after(function(done) {
-    done();
-  });
+  // before(function(done) {
+  //   done();
+  // });
+  //
+  // after(function(done) {
+  //   done();
+  // });
 
   it('App should exist', function(done) {
     expect(app).to.exist;
