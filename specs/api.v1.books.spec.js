@@ -82,6 +82,32 @@ describe('app', function() {
       });
     }); // end GET /books/
 
+    // end POST /books/:id
+    describe('on POST, it', function() {
+      it('should return 200', function(done) {
+        request(app)
+          .post('/api/v1/books/')
+          .send(testData.book[1])
+          .expect(200)
+          .end(function(error, response) {
+            if (error) throw error;
+            done();
+          });
+      });
+
+      it.skip('should return json content', function(done) {
+        request(app)
+          .post('/api/v1/books/')
+          .expect('Content-Type', /json/)
+          .end(function(error, response) {
+            if (error) throw error;
+            done();
+          });
+        done();
+      });
+    });
+    // end POST /books/:id
+
     describe('/:id :', function() {
       describe('on GET, it', function() {
 
@@ -140,7 +166,6 @@ describe('app', function() {
             });
         });
 
-
         it('should return an empty object when no book found', function(done) {
           var databaseSpy = new sinon.spy();
 
@@ -161,17 +186,8 @@ describe('app', function() {
         });
       });
 
-      // end POST /books/:id
-      describe.skip('POST', function() {
-        it('should post', function(done) {
-          // create a book
-          done();
-        });
-      });
-      // end POST /books/:id
-
       // end PUT /books/:id
-      describe.skip('POST', function() {
+      describe.skip('on PUT, it', function() {
         it('should put', function(done) {
           // update a book
           done();
@@ -180,7 +196,7 @@ describe('app', function() {
       // end PUT /books/:id
 
       // end DELETE /books/:id
-      describe.skip('POST', function() {
+      describe.skip('on DELETE, it', function() {
         it('should delete', function(done) {
           // delete a book
           done();
