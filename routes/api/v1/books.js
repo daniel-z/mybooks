@@ -19,7 +19,6 @@ module.exports = function(app) {
 
       return book.save(function(err) {
         if (!err) {
-          console.log('created book.title');
           return response.json(book);
         } else {
           response.json(JSON.stringify(err));

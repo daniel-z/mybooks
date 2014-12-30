@@ -84,16 +84,6 @@ describe('app', function() {
 
     // end POST /books/:id
     describe('on POST, it', function() {
-      before(function(done) {
-        this.originalSave = _.clone(app.database.models.book.prototype.save);
-        done();
-      });
-
-      afterEach(function(done) {
-        app.database.models.book.prototype.save = this.originalSave;
-        done();
-      });
-
       it('should return 200', function(done) {
         app.database.models.book.prototype.save = function(callback) {
           callback(null);
@@ -130,10 +120,11 @@ describe('app', function() {
 
         app.database.models.book.prototype.save = function(callback) {
           saveSpy();
-          return testData.book;
+          callback(null);
+          return;
         };
 
-        expect(saveSpy.called).to.be.true();
+        expect(saveSpy.calledOnce);
 
         request(app)
           .post('/api/v1/books/')
