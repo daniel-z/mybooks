@@ -5,10 +5,10 @@ module.exports = function(app) {
   router.get('/', function(request, response) {
     return app.database.models.book.find(function(err, books) {
       if (!err) {
-        response.set('Content-Type', 'application/json');
-        return response.json({
-          books: books || []
-        });
+        if (!books) {
+          books = [];
+        }
+        return response.json(JSON.stringify(books));
       } else {
         return console.log(err);
       }
@@ -16,7 +16,16 @@ module.exports = function(app) {
   });
 
   router.get('/:id', function(request, response) {
-    response.send(request.params.id);
+    return app.database.models.book.findById(request.params.id, function(err, book) {
+      if (!err) {
+        if (!book) {
+          book = {};
+        }
+        return response.json(JSON.stringify(book));
+      } else {
+        return console.log(err);
+      }
+    });
   });
 
   return router;

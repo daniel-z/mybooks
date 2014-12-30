@@ -21,7 +21,7 @@ module.exports = function(grunt) {
         options: {
           spawn: false,
         },
-        files: ['routes/*.js', 'specs/*.spec.js'],
+        files: ['routes/**/*.js', 'specs/*.spec.js'],
         tasks: ['mochaTest']
       }
     }

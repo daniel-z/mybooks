@@ -1,4 +1,5 @@
 var books = [{
+  "id": "1",
   "author": "Susane Collins",
   "image": "images/books/hunger1.png",
   "rate": "4",
