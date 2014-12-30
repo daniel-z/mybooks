@@ -16,17 +16,15 @@ module.exports = function(app) {
     })
     .post('/', function(request, response) {
       var book = new app.database.models.book();
-      return response.json(JSON.stringify({
-        "success": "true"
-      }));
-      // return book.save(function(err) {
-      //   if (!err) {
-      //     console.log('created');
-      //     return response.send(book);
-      //   } else {
-      //     console.log(err);
-      //   }
-      // });
+
+      return book.save(function(err) {
+        if (!err) {
+          console.log('created book.title');
+          return response.json(book);
+        } else {
+          response.json(JSON.stringify(err));
+        }
+      });
     })
 
   .get('/:id', function(request, response) {

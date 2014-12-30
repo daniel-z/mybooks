@@ -84,7 +84,21 @@ describe('app', function() {
 
     // end POST /books/:id
     describe('on POST, it', function() {
+      before(function(done) {
+        this.originalSave = _.clone(app.database.models.book.prototype.save);
+        done();
+      });
+
+      afterEach(function(done) {
+        app.database.models.book.prototype.save = this.originalSave;
+        done();
+      });
+
       it('should return 200', function(done) {
+        app.database.models.book.prototype.save = function(callback) {
+          callback(null);
+        };
+
         request(app)
           .post('/api/v1/books/')
           .send(testData.book[1])
@@ -95,16 +109,42 @@ describe('app', function() {
           });
       });
 
-      it.skip('should return json content', function(done) {
+      it('should return json content', function(done) {
+        app.database.models.book.prototype.save = function(callback) {
+          callback(null);
+        };
+
         request(app)
           .post('/api/v1/books/')
+          .send(testData.book[1])
           .expect('Content-Type', /json/)
           .end(function(error, response) {
             if (error) throw error;
             done();
           });
-        done();
       });
+
+      it('should save in the database when book is using a valid schema', function(done) {
+        var that = this,
+          saveSpy = new sinon.spy();
+
+        app.database.models.book.prototype.save = function(callback) {
+          saveSpy();
+          return testData.book;
+        };
+
+        expect(saveSpy.called).to.be.true();
+
+        request(app)
+          .post('/api/v1/books/')
+          .send(testData.book[1])
+          .expect('Content-Type', /json/)
+          .end(function(error, response) {
+            if (error) throw error;
+            done();
+          });
+      });
+
     });
     // end POST /books/:id
 
