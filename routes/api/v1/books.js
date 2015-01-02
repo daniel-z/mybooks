@@ -32,19 +32,42 @@ module.exports = function(app) {
         }));
       }
     })
-
-  .get('/:id', function(request, response) {
-    return app.database.models.book.findById(request.params.id, function(err, book) {
-      if (!err) {
-        if (!book) {
-          book = {};
+    .get('/:id', function(request, response) {
+      return app.database.models.book.findById(request.params.id, function(err, book) {
+        if (!err) {
+          if (!book) {
+            book = {};
+          }
+          return response.json(JSON.stringify(book));
+        } else {
+          return console.log(err);
         }
-        return response.json(JSON.stringify(book));
-      } else {
-        return console.log(err);
-      }
+      });
+    })
+    .put('/:id', function(request, response) {
+      return app.database.models.book.findById(request.params.id, function(err, book) {
+        if (!err) {
+          if (book) {
+            var newData = request.body;
+            _.each(_.keys(newData), function(field) {
+              book[field] = newData[field];
+            });
+            book.save(function(error) {
+              if (!err) {
+                return response.json(JSON.stringify(book));
+              }
+            });
+          } else {
+            return response.json(JSON.stringify({
+              "error": "No book found."
+            }));
+          }
+        } else {
+          return response.json(JSON.stringify(err));
+        }
+
+      });
     });
-  });
 
   return router;
 };

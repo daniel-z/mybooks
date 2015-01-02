@@ -13,6 +13,10 @@ describe('app', function() {
   });
 
   describe('api/v1/books', function() {
+
+    // ------------------------------------------------------------
+    // end GET /books/
+    // ------------------------------------------------------------
     describe('on GET, it', function() {
       beforeEach(function(done) {
         app.database.models.book.find = {};
@@ -82,7 +86,10 @@ describe('app', function() {
       });
     }); // end GET /books/
 
-    // end POST /books/:id
+    // ------------------------------------------------------------
+    // POST /books/
+    // ------------------------------------------------------------
+
     describe('on POST, it', function() {
       beforeEach(function(done) {
         app.database.models.book.prototype.save = function(callback) {
@@ -192,6 +199,10 @@ describe('app', function() {
     });
     // end POST /books/:id
 
+    // ------------------------------------------------------------
+    // GET /books/:id
+    // ------------------------------------------------------------
+
     describe('/:id :', function() {
       describe('on GET, it', function() {
 
@@ -270,16 +281,160 @@ describe('app', function() {
         });
       });
 
-      // end PUT /books/:id
-      describe.skip('on PUT, it', function() {
-        it('should put', function(done) {
-          // update a book
+      // ------------------------------------------------------------
+      // PUT /books/:id
+      // ------------------------------------------------------------
+      describe('on PUT, it', function() {
+        beforeEach(function(done) {
+          app.database.models.book.findById = function(id, callback) {
+            callback(null, testData.book);
+            return;
+          };
+
+          app.database.models.book.prototype.save = function(callback) {
+            callback(null);
+            return;
+          };
           done();
         });
+
+        it('should return 200', function(done) {
+          app.database.models.book.findById = function(id, callback) {
+            callback({
+              "error": "error"
+            }, null);
+            return;
+          };
+
+          request(app)
+            .put('/api/v1/books/1')
+            .send(testData.books[1])
+            .expect(200)
+            .end(function(error, response) {
+              if (error) throw error;
+              done();
+            });
+        });
+
+        it('should return json content', function(done) {
+          app.database.models.book.findById = function(id, callback) {
+            callback({
+              "error": "error"
+            }, null);
+            return;
+          };
+
+          request(app)
+            .put('/api/v1/books/1')
+            .send(testData.books[1])
+            .expect('Content-Type', /json/)
+            .end(function(error, response) {
+              if (error) throw error;
+              done();
+            });
+        });
+
+        it('should return json error when no book found', function(done) {
+          app.database.models.book.findById = function(id, callback) {
+            callback(null, null);
+            return;
+          };
+
+          request(app)
+            .put('/api/v1/books/1')
+            .send(testData.books[1])
+            .expect('Content-Type', /json/)
+            .end(function(error, response) {
+              var result = JSON.parse(response.body);
+
+              expect(result.error).to.exist();
+              expect(result.error).to.equals('No book found.');
+
+              if (error) throw error;
+              done();
+            });
+        });
+
+        it('should return error on db error', function(done) {
+          app.database.models.book.findById = function(id, callback) {
+            callback({
+              "error": "error"
+            }, null);
+            return;
+          };
+
+          request(app)
+            .put('/api/v1/books/1')
+            .send(testData.books[1])
+            .expect('Content-Type', /json/)
+            .end(function(error, response) {
+              expect(response).to.exist();
+              expect(response.body).to.exist();
+
+              var result = JSON.parse(response.body);
+              expect(result.error).to.exist();
+              expect(result.error).to.equals('error');
+
+              if (error) throw error;
+              done();
+            });
+        });
+
+        it('should search, save in database and returning new data', function(done) {
+          var searchSpy = new sinon.spy(),
+            saveSpy = new sinon.spy();
+
+          app.database.models.book.findById = function(id, callback) {
+            searchSpy();
+            book = _.clone(testData.book);
+            book.save = function(callback) {
+              saveSpy();
+              callback(null);
+              return;
+            };
+
+            callback(null, book);
+            return;
+          };
+
+          var newBookData = {
+            author: 'new',
+            rate: 'new',
+            readStart: 'new',
+            readEnd: 'new',
+            readProgress: 'new',
+            title: 'new'
+          };
+
+          request(app)
+            .put('/api/v1/books/1')
+            .send(newBookData)
+            .expect('Content-Type', /json/)
+            .end(function(error, response) {
+              if (error) throw error;
+              expect(searchSpy.calledOnce).to.be.true();
+              expect(saveSpy.calledOnce).to.be.true();
+              expect(response.body).to.exist();
+
+              var newBookData = JSON.parse(response.body);
+
+              expect(newBookData.title).to.be.equals('new');
+              expect(newBookData.author).to.be.equals('new');
+              expect(newBookData.readStart).to.be.equals('new');
+              expect(newBookData.readEnd).to.be.equals('new');
+              expect(newBookData.readProgress).to.be.equals('new');
+              expect(newBookData.rate).to.be.equals('new');
+              done();
+            });
+        });
+
       });
       // end PUT /books/:id
 
-      // end DELETE /books/:id
+      // ------------------------------------------------------------
+      // DELETE /books/:id
+      // ------------------------------------------------------------
+
       describe.skip('on DELETE, it', function() {
         it('should delete', function(done) {
           // delete a book
