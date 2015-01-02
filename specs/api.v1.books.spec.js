@@ -95,7 +95,7 @@ describe('app', function() {
       it('should return 200', function(done) {
         request(app)
           .post('/api/v1/books/')
-          .send(testData.book[1])
+          .send(testData.books[1])
           .expect(200)
           .end(function(error, response) {
             if (error) throw error;
@@ -106,7 +106,7 @@ describe('app', function() {
       it('should return json content', function(done) {
         request(app)
           .post('/api/v1/books/')
-          .send(testData.book[1])
+          .send(testData.books[1])
           .expect('Content-Type', /json/)
           .end(function(error, response) {
             if (error) throw error;
@@ -126,13 +126,68 @@ describe('app', function() {
 
         request(app)
           .post('/api/v1/books/')
-          .send(testData.book[1])
+          .send(testData.books[1])
           .expect('Content-Type', /json/)
           .end(function(error, response) {
+            var result = JSON.parse(response.body);
             expect(saveSpy.calledOnce).to.be.true();
             if (error) throw error;
             done();
           });
+      });
+
+      it('should return an error in json format when book is using an invalid schema', function(done) {
+        var that = this;
+
+        var schemaDestroyer = function(dataSchema, ignore) {
+          var lastField,
+            actualField,
+            dataSchemaTests = [],
+            dataSchemaDestroy = _.clone(dataSchema),
+            fields = _.difference(_.keys(dataSchema), ignore);
+
+          _.each(fields, function(field) {
+            lastField = actualField || null;
+            actualField = {
+              field: field,
+              data: dataSchemaDestroy[field]
+            };
+
+            if (lastField !== null) {
+              dataSchemaDestroy[lastField.field] = lastField.data;
+            }
+
+            delete dataSchemaDestroy[actualField.field];
+            dataSchemaTests.push(_.clone(dataSchemaDestroy));
+          });
+          return dataSchemaTests;
+        };
+
+        var testSchemas = schemaDestroyer(testData.book, ['readStart', 'readEnd', 'readProgress', 'rate']),
+          totalTests = testSchemas.length;
+
+        app.database.models.book.prototype.save = function(callback) {
+          callback(null);
+          return;
+        };
+
+        _.each(testSchemas, function(wrongBookData) {
+          request(app)
+            .post('/api/v1/books')
+            .send(wrongBookData)
+            .expect('Content-Type', /json/)
+            .end(function(error, response) {
+              expect(response.body).to.exist();
+              var result = JSON.parse(response.body);
+              expect(result.name).to.exist();
+              expect(result.name).to.equals('ValidationError');
+              if (error) throw error;
+              totalTests--;
+              if (totalTests === 0) {
+                done();
+              }
+            });
+        });
       });
     });
     // end POST /books/:id

@@ -1,3 +1,5 @@
+var _ = require('underscore');
+
 module.exports = function(app) {
   var router = require('express').Router();
 
@@ -15,15 +17,20 @@ module.exports = function(app) {
       });
     })
     .post('/', function(request, response) {
-      var book = new app.database.models.book();
-
-      return book.save(function(err) {
-        if (!err) {
-          return response.json(book);
-        } else {
-          response.json(JSON.stringify(err));
-        }
-      });
+      if (request && request.body) {
+        var book = new app.database.models.book(request.body);
+        book.save(function(err) {
+          if (!err) {
+            return response.json(JSON.stringify(book));
+          } else {
+            response.json(JSON.stringify(err));
+          }
+        });
+      } else {
+        return response.json(JSON.stringify({
+          error: "Book data needed."
+        }));
+      }
     })
 
   .get('/:id', function(request, response) {

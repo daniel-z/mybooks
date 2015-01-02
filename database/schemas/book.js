@@ -1,11 +1,18 @@
 var mongoose = require('mongoose');
 
 var Book = new mongoose.Schema({
-  title: String,
-  author: String,
+  title: {
+    type: String,
+    required: true
+  },
+  author: {
+    type: String,
+    required: true
+  },
+  rate: Number,
   readStart: Date,
   readEnd: Date,
-  readProgress: Number
+  readProgress: Date
 });
 
 module.exports = Book;
