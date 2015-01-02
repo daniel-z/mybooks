@@ -84,11 +84,15 @@ describe('app', function() {
 
     // end POST /books/:id
     describe('on POST, it', function() {
-      it('should return 200', function(done) {
+      beforeEach(function(done) {
         app.database.models.book.prototype.save = function(callback) {
           callback(null);
+          return;
         };
+        done();
+      });
 
+      it('should return 200', function(done) {
         request(app)
           .post('/api/v1/books/')
           .send(testData.book[1])
@@ -100,10 +104,6 @@ describe('app', function() {
       });
 
       it('should return json content', function(done) {
-        app.database.models.book.prototype.save = function(callback) {
-          callback(null);
-        };
-
         request(app)
           .post('/api/v1/books/')
           .send(testData.book[1])
@@ -124,18 +124,16 @@ describe('app', function() {
           return;
         };
 
-        expect(saveSpy.calledOnce);
-
         request(app)
           .post('/api/v1/books/')
           .send(testData.book[1])
           .expect('Content-Type', /json/)
           .end(function(error, response) {
+            expect(saveSpy.calledOnce).to.be.true();
             if (error) throw error;
             done();
           });
       });
-
     });
     // end POST /books/:id
 
