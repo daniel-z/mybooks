@@ -1,0 +1,31 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+a {
+  color: #00B7FF;
+}
+form {
+  margin: 10px;
+  display: inline-block;
+  float: left;
+}
+form#apiwork input[name="submit"] {
+  width: 50px;
+  padding: 10px;
+  display: block;
+}
+label,
+input,
+select {
+  margin: 10px;
+  min-width: 100px;
+  display: inline-block;
+}
+label {
+  text-align: right;
+}
+form#results textarea {
+  min-width: 300px;
+  min-height: 300px;
+}

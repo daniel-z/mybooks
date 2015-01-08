@@ -1,0 +1,50 @@
+<h1>My Bookshelf API Work</h1>
+<p>
+  Test and work with the Bookshelf API.
+</p>
+<form id="apiwork">
+
+  <label for="url">API URL:</label>
+  <select id="url" name="url">
+    <option value="book">/api/book</option>
+    <option value="books">/api/books</option>
+  </select>
+  <br/>
+  <label for="method">HTTP Method:</label>
+  <select id="method" name="method">
+    <option value="get">GET</option>
+    <option value="post">POST</option>
+    <option value="push">PUT</option>
+    <option value="delete">DELETE</option>
+  </select>
+  <br/>
+  <label for="id">Id:</label>
+  <input type="text" id="id" name="id">
+  <br/>
+  <label for="title">Title:</label>
+  <input type="text" id="title" name="title">
+  <br/>
+  <label for="author">Author:</label>
+  <input type="text" id="author" name="author">
+  <br/>
+  <label for="rate">Rate:</label>
+  <input type="text" id="rate" name="rate">
+  <br/>
+  <label for="readStart">Read Start:</label>
+  <input type="text" id="readStart" name="readStart">
+  <br/>
+  <label for="readEnd">Read End:</label>
+  <input type="text" id="readEnd" name="readEnd">
+  <br/>
+  <label for="readProgress">Progress:</label>
+  <input type="text" id="readProgress" name="readProgress">
+  <br/>
+
+  <input type="button" name="submit" value="Go!">
+</form>
+
+<form id="results">
+  <textarea name="results" disabled></textarea>
+</form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
