@@ -1,11 +1,34 @@
 "use strict";
 
 (function ($, _) {
+
   var selectors = {
     apiworkForm: '#apiwork',
     resultBox: 'textarea[name=results]',
     resultTable: 'table.results'
   }
+
+  var routesConfig = {
+    '/api/v1/books': {
+      'GET': {
+        data: null
+      }
+    },
+    '/api/v1/book': {
+      'GET': {
+        data: ['id']
+      },
+      'POST': {
+        data: 'all'
+      },
+      'PUT': {
+        data: 'all'
+      },
+      'DELETE': {
+        data: ['id']
+      }
+    }
+  };
 
   function formToObject($form) {
     var formObject = {}
@@ -17,11 +40,23 @@
     return formObject;
   };
 
-  function execute(formData, success, error) {
+  function getNeededDataForRequest(allData, routesConfig) {
+    var requestDataCfg = routesConfig[allData.url][allData.method],
+      requestData = _.omit(allData, ['method', 'url']);
+
+    if (_.isArray(requestDataCfg)) {
+      requestData = _.pick(requestData, requestDataCfg);
+    } else if (requestData === null) {
+      requestData = {}
+    }
+    return requestData;
+  }
+
+  function execute(formData, success, error, routesConfig) {
     $.ajax({
-        type: formData.method,
         url: formData.url,
-        data: _.omit(formData, ['method', 'url'])
+        type: formData.method,
+        data: getNeededDataForRequest(formData, routesConfig)
       })
       .done(function (msg) {
         console.log(msg)
@@ -49,7 +84,6 @@
       _.each(dataArray, function (object) {
         var objectKeys = _.keys(object);
         if (objectKeys.length > hcount) {
-          console.log(headers);
           headers = objectKeys;
           hcount = objectKeys.length;
         }
@@ -126,7 +160,7 @@
 
   $(selectors.apiworkForm).on('submit', function (event) {
     event.preventDefault();
-    execute(formToObject($(selectors.apiworkForm)), ajaxResult, ajaxResult);
+    execute(formToObject($(selectors.apiworkForm)), ajaxResult, ajaxResult, routesConfig);
     return;
   })
 
