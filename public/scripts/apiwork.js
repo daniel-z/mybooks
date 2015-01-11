@@ -73,7 +73,7 @@
       });
   };
 
-  function buildTable(dataArray) {
+  function buildResultsTable(dataArray) {
     if (dataArray.length === 0) {
       return;
     }
@@ -88,6 +88,7 @@
           hcount = objectKeys.length;
         }
       });
+      headers.unshift('Edit');
       return headers;
     }
 
@@ -118,7 +119,7 @@
           var $td = $('<td>' + value + '</td>');
           $tr.append($td);
         });
-
+        $tr.prepend($('<td  class="edit"><a>Edit</a></td>'));
         $tbody.append($tr);
       });
       return;
@@ -139,7 +140,7 @@
   }
 
   function printTable(msg) {
-    buildTable(msg);
+    buildResultsTable(msg);
     $(selectors.resultTable).removeClass('disabled');
     $(selectors.resultBox).addClass('disabled');
     return;

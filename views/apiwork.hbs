@@ -5,8 +5,8 @@
 <form id="apiwork">
   <label for="url">API URL:</label>
   <select id="url" name="url">
-    <option value="/api/v1/book">/api/v1/book</option>
-    <option value="/api/v1/books">/api/v1/books</option>
+    <option value="/api/v1/book">book</option>
+    <option value="/api/v1/books">books</option>
   </select>
   <br/>
   <label for="method">HTTP Method:</label>
@@ -50,4 +50,7 @@
 
 <script src="libs/jquery/dist/jquery.min.js"></script>
 <script src="libs/underscore/underscore-min.js"></script>
+<script src="libs/backbone/backbone-min.js"></script>
+<script src="scripts/models/book.js"></script>
+<script src="scripts/collections/books.js"></script>
 <script src="scripts/apiwork.js"></script>
