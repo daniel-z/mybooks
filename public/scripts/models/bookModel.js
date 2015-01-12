@@ -1,6 +1,6 @@
 'use strict';
 
-var Book = Backbone.Model.extend({
+var BookModel = Backbone.Model.extend({
   initialize: function (options) {},
   url: '/api/v1/book',
   parse: function (data) {
