@@ -17,15 +17,16 @@ define(function (require, exports, module) {
 
     myBooks: function () {
       var myBooksCollection = new BooksCollection();
-      this.loadView(new BooksView({
+      var booksView = new BooksView({
         books: myBooksCollection
-      }));
+      })
+      this.loadView(booksView);
       return;
     },
 
     editBook: function (id) {
       console.log('navigate edit book');
-
+      var that = this;
       if (!id) {
         console.error('book id needed');
         return;
@@ -35,9 +36,15 @@ define(function (require, exports, module) {
         id: id
       });
 
-      this.loadView(new BookView({
+      var bookView = new BookView({
         book: myBook
-      }));
+      })
+
+      bookView.listenTo(myBook, 'destroy', function () {
+        that.navigate("", true);
+      });
+
+      this.loadView(bookView);
 
       return;
     },

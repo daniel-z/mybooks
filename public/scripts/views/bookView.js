@@ -26,10 +26,11 @@ define(function (require, exports, module) {
 
     events: {
       'click form#editBook [type=submit]': 'saveBook',
+      'click form#editBook input[name=delete]': 'deleteBook',
     },
 
     bookSuccess: function (model, response, options) {
-      console.info('book "' + model.get('title') + '" saved successfully!');
+      console.info('action on book "' + model.get('title') + '" successfully!');
     },
 
     bookError: function (model, response, options) {
@@ -55,6 +56,15 @@ define(function (require, exports, module) {
       });
     },
 
+    deleteBook: function (event) {
+      event.preventDefault();
+      console.log('destroy!');
+      this.book.destroy({
+        wait: true,
+        success: this.bookSuccess,
+        error: this.bookError
+      });
+    },
     render: function () {
       var params = {
         book: this.book.attributes
