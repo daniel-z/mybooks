@@ -7,7 +7,9 @@ define(function (require, exports, module) {
 
   return Backbone.Model.extend({
     initialize: function (options) {},
-    url: '/api/v1/book',
+    url: function () {
+      return '/api/v1/books/' + this.get('id')
+    },
     parse: function (data) {
       data.id = data._id;
       return data;

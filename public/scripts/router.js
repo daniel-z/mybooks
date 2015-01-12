@@ -5,21 +5,46 @@ define(function (require, exports, module) {
     _ = require('underscore'),
     Backbone = require('backbone'),
     BooksCollection = require('scripts/collections/booksCollection'),
-    BooksView = require('scripts/views/booksView');
+    BookModel = require('scripts/models/bookModel'),
+    BooksView = require('scripts/views/booksView'),
+    BookView = require('scripts/views/bookView');
 
   return Backbone.Router.extend({
     routes: {
-      '': 'myBooks'
+      '': 'myBooks',
+      'edit/:id': 'editBook',
     },
 
     myBooks: function () {
-      console.log('navigate root');
-
       var myBooksCollection = new BooksCollection();
-      var myBooksView = new BooksView({
-        el: '#myBooksApp',
+      this.loadView(new BooksView({
         books: myBooksCollection
+      }));
+      return;
+    },
+
+    editBook: function (id) {
+      console.log('navigate edit book');
+
+      if (!id) {
+        console.error('book id needed');
+        return;
+      }
+
+      var myBook = new BookModel({
+        id: id
       });
+
+      this.loadView(new BookView({
+        book: myBook
+      }));
+
+      return;
+    },
+
+    loadView: function (view) {
+      this.view && this.view.remove();
+      this.view = view;
     }
 
   });

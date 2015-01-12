@@ -4,13 +4,17 @@ define(function (require, exports, module) {
   var $ = require('jquery'),
     _ = require('underscore'),
     Backbone = require('backbone'),
-    tmp = require('hb!templates/mybooks.hbs'),
     table_tmp = require('hb!templates/mybooks_table.hbs');
 
   return Backbone.View.extend({
+    tagName: 'section',
+    id: '#myBooks',
     initialize: function (options) {
       this.books = options.books;
-      this.books.on('sync', this.render, this);
+
+      this.listenTo(this.books, 'sync', this.render);
+      this.listenTo(this.books, 'destroy', this.remove);
+
       this.books.fetch({
         error: this.booksError
       });
@@ -21,10 +25,11 @@ define(function (require, exports, module) {
     },
 
     render: function () {
-      this.$el.html(tmp());
-      this.$el.append(table_tmp({
+      this.$el.html(table_tmp({
         books: this.books.models
       }));
+      $('body').append(this.$el);
+      return this;
     }
   });
 });
