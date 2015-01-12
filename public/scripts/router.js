@@ -17,6 +17,7 @@ define(function (require, exports, module) {
 
       var myBooksCollection = new BooksCollection();
       var myBooksView = new BooksView({
+        el: '#myBooksApp',
         books: myBooksCollection
       });
     }

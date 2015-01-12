@@ -4,10 +4,11 @@ define(function (require, exports, module) {
   var $ = require('jquery'),
     _ = require('underscore'),
     Backbone = require('backbone'),
-    MyBooksRouter = require('scripts/router');
+    BooksRouter = require('scripts/router');
 
   return {
     start: function () {
+      var myBooksRouter = new BooksRouter();
       Backbone.history.start();
       console.log('books app started!');
     }

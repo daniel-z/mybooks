@@ -1,0 +1,27 @@
+<table class="results">
+  <thead>
+      <tr>
+        <th>id</th>
+        <th>title</th>
+        <th>author</th>
+        <th>rate</th>
+        <th>read start</th>
+        <th>read end</th>
+        <th>progress</th>
+      </tr>
+  </thead>
+  <tbody>
+    {{#each books}}
+    <tr>
+        <td>{{this.attributes.id}}</td>
+        <td>{{this.attributes.title}}</td>
+        <td>{{this.attributes.author}}</td>
+        <td>{{this.attributes.rate}}</td>
+        <td>{{this.attributes.readStart}}</td>
+        <td>{{this.attributes.readEnd}}</td>
+        <td>{{this.attributes.readProgress}}</td>
+    </tr>
+    {{/each}}
+
+  </tbody>
+</table>
