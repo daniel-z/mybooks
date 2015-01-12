@@ -1,58 +1,54 @@
-<h1>My Bookshelf API Work</h1>
-<p>
-  Test and work with the Bookshelf API.
-</p>
-<form id="apiwork">
-  <label for="url">API URL:</label>
-  <select id="url" name="url">
-    <option value="/api/v1/book">book</option>
-    <option value="/api/v1/books">books</option>
-  </select>
-  <br/>
-  <label for="method">HTTP Method:</label>
-  <select id="method" name="method">
-    <option value="GET">GET</option>
-    <option value="POST">POST</option>
-    <option value="PUT">PUT</option>
-    <option value="DELETE">DELETE</option>
-  </select>
-  <br/>
-  <label for="id">Id:</label>
-  <input type="text" id="id" name="id">
-  <br/>
-  <label for="title">Title:</label>
-  <input type="text" id="title" name="title">
-  <br/>
-  <label for="author">Author:</label>
-  <input type="text" id="author" name="author">
-  <br/>
-  <label for="rate">Rate:</label>
-  <input type="text" id="rate" name="rate">
-  <br/>
-  <label for="readStart">Read Start:</label>
-  <input type="text" id="readStart" name="readStart">
-  <br/>
-  <label for="readEnd">Read End:</label>
-  <input type="text" id="readEnd" name="readEnd">
-  <br/>
-  <label for="readProgress">Progress:</label>
-  <input type="text" id="readProgress" name="readProgress">
-  <br/>
 
-  <input type="submit" value="Go!">
-</form>
+<section id="myBooksApp">
+  <h1>My Bookshelf API Work</h1>
+  <p>
+    Test and work with the Bookshelf API.
+  </p>
+  <form id="apiwork">
+    <label for="url">API URL:</label>
+    <select id="url" name="url">
+      <option value="/api/v1/book">book</option>
+      <option value="/api/v1/books">books</option>
+    </select>
+    <br/>
+    <label for="method">HTTP Method:</label>
+    <select id="method" name="method">
+      <option value="GET">GET</option>
+      <option value="POST">POST</option>
+      <option value="PUT">PUT</option>
+      <option value="DELETE">DELETE</option>
+    </select>
+    <br/>
+    <label for="id">Id:</label>
+    <input type="text" id="id" name="id">
+    <br/>
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title">
+    <br/>
+    <label for="author">Author:</label>
+    <input type="text" id="author" name="author">
+    <br/>
+    <label for="rate">Rate:</label>
+    <input type="text" id="rate" name="rate">
+    <br/>
+    <label for="readStart">Read Start:</label>
+    <input type="text" id="readStart" name="readStart">
+    <br/>
+    <label for="readEnd">Read End:</label>
+    <input type="text" id="readEnd" name="readEnd">
+    <br/>
+    <label for="readProgress">Progress:</label>
+    <input type="text" id="readProgress" name="readProgress">
+    <br/>
 
-<textarea name="results" class="disabled"></textarea>
-<table class="results disabled">
-  <thead></thead>
-  <tbody></tbody>
-</table>
+    <input type="submit" value="Go!">
+  </form>
 
-<script src="libs/jquery/dist/jquery.min.js"></script>
-<script src="libs/underscore/underscore-min.js"></script>
-<script src="libs/backbone/backbone-min.js"></script>
-<script src="scripts/models/bookModel.js"></script>
-<script src="scripts/collections/booksCollection.js"></script>
-<script src="scripts/views/booksView.js"></script>
-<script src="scripts/router.js"></script>
-<script src="scripts/myBooks.js"></script>
+  <textarea name="results" class="disabled"></textarea>
+  <table class="results disabled">
+    <thead></thead>
+    <tbody></tbody>
+  </table>
+</section>
+
+<script src="libs/requirejs/require.js" data-main="scripts/app"></script>

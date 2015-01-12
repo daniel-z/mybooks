@@ -1,13 +1,18 @@
 "use strict";
 
-var BooksApp = (function ($, _, Backbone, MyBooksRouter, BooksView) {
-  console.log('books app started!');
+define(function (require, exports, module) {
+  var $ = require('jquery'),
+    _ = require('underscore'),
+    Backbone = require('backbone'),
+    MyBooksRouter = require('scripts/router');
 
-  var router = new MyBooksRouter();
-
-  Backbone.history.start();
-
-})(jQuery, _, Backbone, MyBooksRouter, BooksView);
+  return {
+    start: function () {
+      Backbone.history.start();
+      console.log('books app started!');
+    }
+  }
+});
 
 // (function ($, _) {
 
