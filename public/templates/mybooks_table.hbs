@@ -1,18 +1,20 @@
 <table class="results">
   <thead>
       <tr>
-        <th>id</th>
-        <th>title</th>
-        <th>author</th>
-        <th>rate</th>
-        <th>read start</th>
-        <th>read end</th>
-        <th>progress</th>
+        <th>Edit</th>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Rate</th>
+        <th>Read Start</th>
+        <th>Read End</th>
+        <th>Progress</th>
       </tr>
   </thead>
   <tbody>
     {{#each books}}
     <tr>
+        <td><a href="#edit/{{this.attributes.id}}">edit</a></td>
         <td>{{this.attributes.id}}</td>
         <td>{{this.attributes.title}}</td>
         <td>{{this.attributes.author}}</td>
