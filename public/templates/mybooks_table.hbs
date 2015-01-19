@@ -23,6 +23,10 @@
         <td>{{this.attributes.readEnd}}</td>
         <td>{{this.attributes.readProgress}}</td>
     </tr>
+    {{else}}
+    <tr>
+        <td>No books registered. Go and <a href="#add/">add</a> one</td>
+    </tr>
     {{/each}}
 
   </tbody>

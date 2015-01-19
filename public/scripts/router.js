@@ -13,6 +13,7 @@ define(function (require, exports, module) {
     routes: {
       '': 'myBooks',
       'edit/:id': 'editBook',
+      'add/': 'addBook',
     },
 
     myBooks: function () {
@@ -49,6 +50,20 @@ define(function (require, exports, module) {
       return;
     },
 
+    addBook: function () {
+      console.log('navigate add book');
+      var that = this;
+
+      var myBook = new BookModel();
+
+      var bookView = new BookView({
+        book: myBook
+      })
+
+      this.loadView(bookView);
+
+      return;
+    },
     loadView: function (view) {
       this.view && this.view.remove();
       this.view = view;

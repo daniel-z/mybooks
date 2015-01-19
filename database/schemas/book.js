@@ -12,7 +12,7 @@ var Book = new mongoose.Schema({
   rate: Number,
   readStart: Date,
   readEnd: Date,
-  readProgress: Date
+  readProgress: Number
 });
 
 module.exports = Book;

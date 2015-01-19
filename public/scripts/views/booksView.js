@@ -28,6 +28,7 @@ define(function (require, exports, module) {
       this.$el.html(table_tmp({
         books: this.books.models
       }));
+
       $('body').append(this.$el);
       return this;
     }

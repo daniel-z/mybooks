@@ -15,9 +15,13 @@ define(function (require, exports, module) {
       this.listenTo(this.book, 'sync', this.render);
       this.listenTo(this.book, 'destroy', this.remove);
 
-      this.book.fetch({
-        error: this.bookError
-      });
+      if (this.book.id) {
+        this.book.fetch({
+          error: this.bookError
+        });
+      } else {
+        this.render();
+      }
     },
 
     selectors: {
@@ -49,7 +53,12 @@ define(function (require, exports, module) {
 
     saveBook: function (event) {
       event.preventDefault();
-      this.book.save(this.formToObject($(this.selectors.form)), {
+      var bookData = this.formToObject($(this.selectors.form));
+      if (bookData.id === "") {
+        delete bookData.id;
+      }
+
+      this.book.save(bookData, {
         wait: true,
         success: this.bookSuccess,
         error: this.bookError
