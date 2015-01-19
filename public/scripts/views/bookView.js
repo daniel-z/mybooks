@@ -4,7 +4,8 @@ define(function (require, exports, module) {
   var $ = require('jquery'),
     _ = require('underscore'),
     Backbone = require('backbone'),
-    form_tmp = require('hb!templates/book_form.hbs');
+    form_tmp = require('hb!templates/book_form.hbs'),
+    tmp = require('hb!templates/add_edit_book.hbs');
 
   return Backbone.View.extend({
     tagName: 'section',
@@ -79,7 +80,7 @@ define(function (require, exports, module) {
         book: this.book.attributes
       };
       params['selected' + this.book.attributes.rate] = true;
-      this.$el.html(form_tmp(params));
+      this.$el.html(tmp(params));
       $('body').append(this.$el);
       return this;
     }

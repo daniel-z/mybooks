@@ -4,7 +4,7 @@ define(function (require, exports, module) {
   var $ = require('jquery'),
     _ = require('underscore'),
     Backbone = require('backbone'),
-    table_tmp = require('hb!templates/mybooks_table.hbs');
+    tmp = require('hb!templates/mybooks.hbs');
 
   return Backbone.View.extend({
     tagName: 'section',
@@ -25,7 +25,7 @@ define(function (require, exports, module) {
     },
 
     render: function () {
-      this.$el.html(table_tmp({
+      this.$el.html(tmp({
         books: this.books.models
       }));
 
