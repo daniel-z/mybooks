@@ -1,0 +1,60 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+a {
+  color: #00B7FF;
+}
+form {
+  margin: 10px;
+  display: inline-block;
+  float: left;
+}
+form#apiwork input[name="submit"] {
+  width: 50px;
+  padding: 10px;
+  display: block;
+}
+label,
+input,
+select {
+  margin: 10px;
+  min-width: 100px;
+  display: inline-block;
+}
+label {
+  text-align: right;
+}
+
+textarea[name=results] {
+  min-width: 500px;
+  min-height: 100px;
+}
+
+textarea[name=results].disabled,
+table.results.disabled {
+  display: none;
+}
+
+table.results {
+  border: 1px solid #b9b9b9;
+  padding: 5px;
+}
+table.results thead th {
+  padding: 5px;
+  border-bottom: 1px solid #b9b9b9;
+}
+table.results td {
+  padding: 5px;
+  border-top: 1px solid #b9b9b9;
+}
+
+table.results td.edit a {
+  cursor: pointer;
+}
+
+/*table.results td {
+  border-left: 1px solid #b9b9b9;
+  border-right: 1px solid #b9b9b9;
+}
+*/
