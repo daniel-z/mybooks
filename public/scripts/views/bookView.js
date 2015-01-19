@@ -4,7 +4,7 @@ define(function (require, exports, module) {
   var $ = require('jquery'),
     _ = require('underscore'),
     Backbone = require('backbone'),
-    form_tmp = require('hb!templates/mybooks_form.hbs');
+    form_tmp = require('hb!templates/book_form.hbs');
 
   return Backbone.View.extend({
     tagName: 'section',
