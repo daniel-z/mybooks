@@ -5,6 +5,18 @@ body {
 a {
   color: #00B7FF;
 }
+
+nav {
+  margin: 10px 0;
+}
+nav a i {
+  margin-right: 5px;
+}
+
+button i {
+  margin-right: 5px;
+}
+
 form {
   margin: 10px;
   display: inline-block;
@@ -53,8 +65,11 @@ table.results td.edit a {
   cursor: pointer;
 }
 
-/*table.results td {
+table.results td {
   border-left: 1px solid #b9b9b9;
   border-right: 1px solid #b9b9b9;
 }
-*/
+
+table.results .edit-col a {
+  margin-right: 10px;
+}

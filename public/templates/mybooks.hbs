@@ -1,14 +1,12 @@
 <nav>
-  <a href="#add/">add</a>
-  <a href="#/">list</a>
+  <a class="btn btn-small btn-success" href="#add/"><i class="glyphicon glyphicon-plus"></i>add book</a>
+  <a class="btn btn-small btn-success disabled" href="#/"><i class="glyphicon glyphicon-list"></i>my books</a>
 </nav>
 
-<section id="book-form">
-
-  <table class="results">
+<section id="books">
+  <table class="results table">
     <thead>
         <tr>
-          <th>Edit</th>
           <th>Id</th>
           <th>Title</th>
           <th>Author</th>
@@ -21,8 +19,10 @@
     <tbody>
       {{#each books}}
       <tr>
-          <td><a href="#edit/{{this.attributes.id}}">edit</a></td>
-          <td>{{this.attributes.id}}</td>
+          <td class="edit-col">
+            <a class="edit-button glyphicon glyphicon-pencil" href="#edit/{{this.attributes.id}}"></a>
+            {{this.attributes.id}}
+          </td>
           <td>{{this.attributes.title}}</td>
           <td>{{this.attributes.author}}</td>
           <td>{{this.attributes.rate}}</td>
