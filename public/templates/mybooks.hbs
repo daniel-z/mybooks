@@ -1,0 +1,42 @@
+<nav>
+  <a class="btn btn-small btn-success" href="#add/"><i class="glyphicon glyphicon-plus"></i>add book</a>
+  <a class="btn btn-small btn-success disabled" href="#/"><i class="glyphicon glyphicon-list"></i>my books</a>
+</nav>
+
+<section id="books">
+  <table class="results table">
+    <thead>
+        <tr>
+          <th>Id</th>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Rate</th>
+          <th>Read Start</th>
+          <th>Read End</th>
+          <th>Progress</th>
+        </tr>
+    </thead>
+    <tbody>
+      {{#each books}}
+      <tr>
+          <td class="edit-col">
+            <a class="edit-button glyphicon glyphicon-pencil" href="#edit/{{this.attributes.id}}"></a>
+            {{this.attributes.id}}
+          </td>
+          <td>{{this.attributes.title}}</td>
+          <td>{{this.attributes.author}}</td>
+          <td>{{this.attributes.rate}}</td>
+          <td>{{this.attributes.readStart}}</td>
+          <td>{{this.attributes.readEnd}}</td>
+          <td>{{this.attributes.readProgress}}</td>
+      </tr>
+      {{else}}
+      <tr>
+          <td>No books registered. Go and <a href="#add/">add</a> one</td>
+      </tr>
+      {{/each}}
+
+    </tbody>
+  </table>
+
+</section>

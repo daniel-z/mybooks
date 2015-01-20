@@ -1,0 +1,37 @@
+{
+  "name": "books",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "backbone": "latest",
+    "body-parser": "~1.8.1",
+    "cookie-parser": "~1.3.3",
+    "debug": "~2.0.0",
+    "express": "~4.9.0",
+    "handlebars": "^2.0.0",
+    "hbs": "^2.7.0",
+    "jquery": "latest",
+    "mongoose": "~3.5.5",
+    "morgan": "~1.3.0",
+    "requirejs": "^2.1.15",
+    "requirejs-handlebars": "^0.1.1",
+    "requirejs-text": "^2.0.12",
+    "serve-favicon": "~2.1.3",
+    "bootstrap": "^3.3.2"
+  },
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "grunt": "latest",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-mocha": "^0.4.11",
+    "grunt-mocha-test": "^0.12.4",
+    "mocha": "^2.1.0",
+    "phantomjs": "^1.9.13",
+    "sinon": "^1.12.2",
+    "supertest": "^0.15.0",
+    "underscore": "^1.7.0"
+  }
+}
