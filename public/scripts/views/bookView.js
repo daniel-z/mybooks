@@ -4,7 +4,6 @@ define(function (require, exports, module) {
   var $ = require('jquery'),
     _ = require('underscore'),
     Backbone = require('backbone'),
-    form_tmp = require('hb!templates/book_form.hbs'),
     tmp = require('hb!templates/add_edit_book.hbs');
 
   return Backbone.View.extend({
@@ -26,12 +25,13 @@ define(function (require, exports, module) {
     },
 
     selectors: {
-      form: 'form#editBook'
+      form: 'form#book'
     },
 
     events: {
-      'click form#editBook [type=submit]': 'saveBook',
-      'click form#editBook input[name=delete]': 'deleteBook',
+      'click form#book [type=submit]': 'saveBook',
+      'click form#book button[name=delete]': 'deleteBook',
+      'click form#book button[name=cancel]': 'goList',
     },
 
     bookSuccess: function (model, response, options) {
@@ -75,6 +75,12 @@ define(function (require, exports, module) {
         error: this.bookError
       });
     },
+
+    goList: function (event) {
+      event.preventDefault();
+      BooksApp.router.navigate('#/');
+    },
+
     render: function () {
       var params = {
         book: this.book.attributes
